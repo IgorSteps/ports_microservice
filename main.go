@@ -1,50 +1,60 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
 )
 
-// album represents data about a record album.
-type album struct {
-	ID     string  `json:"id"`
-	Title  string  `json:"title"`
-	Artist string  `json:"artist"`
-	Price  float64 `json:"price"`
+// port data
+type PortData struct {
+	Name        string    `json:"name"`
+	City        string    `json:"city"`
+	Country     string    `json:"country"`
+	Alias       []string  `json:"alias"`
+	Regions     []string  `json:"regions"`
+	Coordinates []float64 `json:"coordinates"`
+	Province    string    `json:"province"`
+	Timezone    string    `json:"timezone"`
+	Unlocs      []string  `json:"unlocs"`
+	Code        string    `json:"code"`
 }
 
-// albums slice to seed record album data.
-var albums = []album{
-	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
-	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
-	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
+func ReadFile() map[string]PortData {
+	// Open our jsonFile
+	jsonFile, err := os.Open("ports.json")
+	// if we os.Open returns an error then handle it
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Successfully Opened ports.json")
+	// defer the closing of our jsonFile so that we can parse it later on
+	defer jsonFile.Close()
+
+	// read our opened xmlFile as a byte array.
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	// we initialize our Users array
+	var ports map[string]PortData
+
+	// we unmarshal our byteArray which contains our
+	// jsonFile's content into 'users' which we defined above
+	err = json.Unmarshal(byteValue, &ports)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return ports
 }
 
 func main() {
-	router := gin.Default()
-	router.GET("/albums", getAlbums)
-	router.POST("/albums", postAlbums)
+	// read the ports.json file in
+	portsMap := ReadFile()
+	fmt.Print(portsMap["AEAJM"])
 
-	router.Run("localhost:5080")
-}
+	// router := gin.Default()
+	// router.GET("/ports", getPorts)
+	// router.POST("/ports", postPorts)
 
-// getAlbums responds with the list of all albums as JSON.
-func getAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
-}
-
-// postAlbums adds an album from JSON received in the request body.
-func postAlbums(c *gin.Context) {
-	var newAlbum album
-
-	// Call BindJSON to bind the received JSON to
-	// newAlbum.
-	if err := c.BindJSON(&newAlbum); err != nil {
-		return
-	}
-
-	// Add the new album to the slice.
-	albums = append(albums, newAlbum)
-	c.IndentedJSON(http.StatusCreated, newAlbum)
+	// router.Run("localhost:5080")
 }

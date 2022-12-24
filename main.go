@@ -4,7 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
+
+	"github.com/gin-gonic/gin"
+	"golang.org/x/exp/maps"
+)
+
+var (
+	ports = ReadFile()
 )
 
 // port data
@@ -47,14 +55,28 @@ func ReadFile() map[string]PortData {
 	return ports
 }
 
+func getPorts(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, ports)
+}
+
+func postPorts(c *gin.Context) {
+	var newPort map[string]PortData
+
+	// Call BindJSON to bind the received JSON to
+	// newAlbum.
+	if err := c.BindJSON(&newPort); err != nil {
+		return
+	}
+
+	// Add the new port to the ports map.
+	maps.Copy(ports, newPort)
+	c.IndentedJSON(http.StatusCreated, newPort)
+}
+
 func main() {
-	// read the ports.json file in
-	portsMap := ReadFile()
-	fmt.Print(portsMap["AEAJM"])
+	router := gin.Default()
+	router.GET("/ports", getPorts)
+	router.POST("/ports", postPorts)
 
-	// router := gin.Default()
-	// router.GET("/ports", getPorts)
-	// router.POST("/ports", postPorts)
-
-	// router.Run("localhost:5080")
+	router.Run("localhost:5080")
 }

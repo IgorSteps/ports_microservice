@@ -6,14 +6,15 @@ import (
 	"os"
 )
 
-// Reads in a ports.json file and returns a map[key, PortData]
+// Reads in a ports.json file and returns slice of bytes
 func ReadFile() []byte {
 	// Open our jsonFile
-	jsonFile, err := os.Open("ports.json")
-	// if we os.Open returns an error then handle it
+	jsonFile, err := os.Open("utils/ports.json")
 	if err != nil {
 		fmt.Println(err)
+		os.Exit(-1)
 	}
+
 	fmt.Println("Successfully Opened ports.json")
 	// defer the closing of our jsonFile so that we can parse it later on
 	defer jsonFile.Close()
@@ -21,14 +22,4 @@ func ReadFile() []byte {
 	// read our opened xmlFile as a byte array.
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	return byteValue
-	// // we initialize our Users array
-	// var ports map[string]client.PortData
-
-	// // we unmarshal our byteArray which contains our
-	// // jsonFile's content into 'users' which we defined above
-	// err = json.Unmarshal(byteValue, &ports)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// return ports
 }

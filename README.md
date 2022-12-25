@@ -1,1 +1,5 @@
-# ports_microservice
+# Ports Microservice
+How to GET all ports:
+```
+curl http://localhost:5080/ports
+```

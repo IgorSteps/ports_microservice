@@ -9,7 +9,7 @@ import (
 // Reads in a ports.json file and returns slice of bytes
 func ReadFile() []byte {
 	// Open our jsonFile
-	jsonFile, err := os.Open("utils/ports.json")
+	jsonFile, err := os.Open("ports.json")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(-1)

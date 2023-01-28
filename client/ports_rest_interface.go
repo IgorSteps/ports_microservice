@@ -29,3 +29,15 @@ func CreatePortsMap() map[string]PortData {
 func GetMultiple(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, ports)
 }
+
+func GetSingle(c *gin.Context) {
+	portCode := c.Param("port_code")
+
+	port, exists := ports[portCode]
+	if !exists {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Port not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, port)
+}

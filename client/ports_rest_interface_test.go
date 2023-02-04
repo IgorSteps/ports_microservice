@@ -9,7 +9,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var expectedPort = `{"name":"Ajman","city":"Ajman","country":"United Arab Emirates","alias":[],"regions":[],"coordinates":[55.5136433,25.4052165],"province":"Ajman","timezone":"Asia/Dubai","unlocs":["AEAJM"],"code":"52000"}`
+var (
+	expectedPort = `{"name":"Ajman","city":"Ajman","country":"United Arab Emirates","alias":[],"regions":[],"coordinates":[55.5136433,25.4052165],"province":"Ajman","timezone":"Asia/Dubai","unlocs":["AEAJM"],"code":"52000"}`
+	//exepctedPorts = ports
+)
 
 // func TestGetMany(t *testing.T) {
 // 	router := gin.Default()
@@ -20,7 +23,7 @@ var expectedPort = `{"name":"Ajman","city":"Ajman","country":"United Arab Emirat
 // 	router.ServeHTTP(w, req)
 
 // 	assert.Equal(t, 200, w.Code)
-// 	assert.Equal(t, "pong", w.Body.String())
+// 	assert.Equal(t, exepctedPorts., w.Body.String())
 // }
 
 func TestGetSingle(t *testing.T) {

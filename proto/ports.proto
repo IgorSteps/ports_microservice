@@ -1,0 +1,23 @@
+syntax = "proto3";
+option go_package = "domain/pb";
+
+message Port {
+  string id = 1;
+  string name = 2;
+  string city = 3;
+  string country = 4;
+  repeated string alias = 5;
+  repeated string regions = 6;
+  repeated float coordinates = 7;
+  string province = 8;
+  string timezoe = 9;
+  repeated string unlocs = 10;
+  string code = 11;
+}
+
+message GetPortListRequest {}
+message GetPortListResponse { repeated Port books = 1; }
+
+service PortDomain {
+  rpc GetPortList(GetPortListRequest) returns (GetPortListResponse) {}
+}

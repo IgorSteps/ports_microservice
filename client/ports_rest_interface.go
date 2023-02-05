@@ -2,10 +2,10 @@ package client
 
 import (
 	"encoding/json"
-	"example/micro-service-project/utils"
 	"fmt"
 	"net/http"
 	"os"
+	"ports_microservice/utils"
 
 	"github.com/gin-gonic/gin"
 )

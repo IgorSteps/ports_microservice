@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.21.12
-// source: ports.proto
+// source: proto/ports.proto
 
 package pb
 
@@ -101,5 +101,5 @@ var PortDomain_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "ports.proto",
+	Metadata: "proto/ports.proto",
 }

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"example/micro-service-project/client"
+	"ports_microservice/client"
 
 	"github.com/gin-gonic/gin"
 )

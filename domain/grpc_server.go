@@ -1,8 +1,19 @@
-package server
+package domain
 
 import (
 	"context"
-	"example/micro-service-project/domain/pb"
+	"flag"
+	"fmt"
+	"log"
+	"net"
+	pb "ports_microservice/domain/proto"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
+)
+
+var (
+	port = flag.Int("port", 50051, "The server port")
 )
 
 type Server struct {
@@ -13,6 +24,22 @@ func (s *Server) GetPortList(ctx context.Context, in *pb.GetPortListRequest) (*p
 	return &pb.GetPortListResponse{
 		Ports: getSamplePorts(),
 	}, nil
+}
+
+func Start() {
+	flag.Parse()
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
+	s := grpc.NewServer()
+	reflection.Register(s)
+
+	pb.RegisterPortDomainServer(s, &Server{})
+	log.Printf("gRPC server listening at %v", lis.Addr())
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }
 
 func getSamplePorts() []*pb.Port {

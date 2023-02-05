@@ -7,13 +7,14 @@ import (
 	"log"
 	"net"
 	pb "ports_microservice/domain/proto"
+	constants "ports_microservice/utils"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 var (
-	port = flag.Int("port", 50051, "The server port")
+	port = flag.Int("port", constants.GrpcServerPort, "The server port")
 )
 
 type Server struct {

@@ -22,6 +22,8 @@ type Server struct {
 }
 
 func (s *Server) GetPortList(ctx context.Context, in *pb.GetPortListRequest) (*pb.GetPortListResponse, error) {
+	log.Printf("Received request: %v", in.ProtoReflect().Descriptor().FullName())
+
 	return &pb.GetPortListResponse{
 		Ports: getSamplePorts(),
 	}, nil

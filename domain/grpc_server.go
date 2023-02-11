@@ -26,7 +26,6 @@ type Server struct {
 // AddOrUpdate adds or updates a port
 func (s *Server) AddOrUpdate(ctx context.Context, request *pb.Port) (*pb.Response, error) {
 	s.db[request.Id] = client.PortData{
-		//Id:          request.Id, // TODO: need to add ID to client port struct
 		Name:        request.Name,
 		City:        request.City,
 		Country:     request.Country,
@@ -50,7 +49,6 @@ func (s *Server) Get(ctx context.Context, id *pb.ID) (*pb.Port, error) {
 		return nil, fmt.Errorf("port not found")
 	}
 	return &pb.Port{
-		//Id:        p.Id, // TODO: need to add ID to client port struct
 		Name:        p.Name,
 		City:        p.City,
 		Country:     p.Country,
@@ -94,7 +92,6 @@ func Start() {
 func getSamplePorts() []*pb.Port {
 	samplePorts := []*pb.Port{
 		{
-			Id:      "AEAJM",
 			Name:    "Ajman",
 			City:    "Ajman",
 			Country: "United Arab Emirates",

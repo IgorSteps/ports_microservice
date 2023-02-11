@@ -10,14 +10,30 @@ message Port {
   repeated string regions = 6;
   repeated float coordinates = 7;
   string province = 8;
-  string timezoe = 9;
+  string timezone = 9;
   repeated string unlocs = 10;
   string code = 11;
 }
 
+// Response is a response from the PortDomainService
+message Response {
+	string message = 1;
+}
+
+// ID represents the ID of a port
+message ID {
+  string id = 1;
+}
+
+// Get all Ports
 message GetPortListRequest {}
-message GetPortListResponse { repeated Port ports = 1; }
+message GetPortListResponse { 
+  repeated Port ports = 1; 
+}
+
 
 service PortDomain {
   rpc GetPortList(GetPortListRequest) returns (GetPortListResponse) {}
+  rpc Get(ID) returns (Port);
+  rpc AddOrUpdate(Port) returns (Response);
 }

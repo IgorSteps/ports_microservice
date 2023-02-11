@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.21.12
-// source: proto/ports.proto
+// source: domain/proto/ports.proto
 
 package pb
 
@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PortDomainClient interface {
 	GetPortList(ctx context.Context, in *GetPortListRequest, opts ...grpc.CallOption) (*GetPortListResponse, error)
+	Get(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Port, error)
+	AddOrUpdate(ctx context.Context, in *Port, opts ...grpc.CallOption) (*Response, error)
 }
 
 type portDomainClient struct {
@@ -42,11 +44,31 @@ func (c *portDomainClient) GetPortList(ctx context.Context, in *GetPortListReque
 	return out, nil
 }
 
+func (c *portDomainClient) Get(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Port, error) {
+	out := new(Port)
+	err := c.cc.Invoke(ctx, "/PortDomain/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *portDomainClient) AddOrUpdate(ctx context.Context, in *Port, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/PortDomain/AddOrUpdate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PortDomainServer is the server API for PortDomain service.
 // All implementations must embed UnimplementedPortDomainServer
 // for forward compatibility
 type PortDomainServer interface {
 	GetPortList(context.Context, *GetPortListRequest) (*GetPortListResponse, error)
+	Get(context.Context, *ID) (*Port, error)
+	AddOrUpdate(context.Context, *Port) (*Response, error)
 	mustEmbedUnimplementedPortDomainServer()
 }
 
@@ -56,6 +78,12 @@ type UnimplementedPortDomainServer struct {
 
 func (UnimplementedPortDomainServer) GetPortList(context.Context, *GetPortListRequest) (*GetPortListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPortList not implemented")
+}
+func (UnimplementedPortDomainServer) Get(context.Context, *ID) (*Port, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedPortDomainServer) AddOrUpdate(context.Context, *Port) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddOrUpdate not implemented")
 }
 func (UnimplementedPortDomainServer) mustEmbedUnimplementedPortDomainServer() {}
 
@@ -88,6 +116,42 @@ func _PortDomain_GetPortList_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PortDomain_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PortDomainServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/PortDomain/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PortDomainServer).Get(ctx, req.(*ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PortDomain_AddOrUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Port)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PortDomainServer).AddOrUpdate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/PortDomain/AddOrUpdate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PortDomainServer).AddOrUpdate(ctx, req.(*Port))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PortDomain_ServiceDesc is the grpc.ServiceDesc for PortDomain service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -99,7 +163,15 @@ var PortDomain_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "GetPortList",
 			Handler:    _PortDomain_GetPortList_Handler,
 		},
+		{
+			MethodName: "Get",
+			Handler:    _PortDomain_Get_Handler,
+		},
+		{
+			MethodName: "AddOrUpdate",
+			Handler:    _PortDomain_AddOrUpdate_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/ports.proto",
+	Metadata: "domain/proto/ports.proto",
 }

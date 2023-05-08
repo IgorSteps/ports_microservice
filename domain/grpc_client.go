@@ -23,6 +23,7 @@ func StartClient() {
 	defer conn.Close()
 
 	client := pb.NewPortDomainClient(conn)
+
 	portsList, err := client.GetPortList(context.Background(), &pb.GetPortListRequest{})
 	if err != nil {
 		log.Fatalf("failed to get ports list: %v", err)

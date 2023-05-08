@@ -25,6 +25,8 @@ type Server struct {
 
 // AddOrUpdate adds or updates a port
 func (s *Server) AddOrUpdate(ctx context.Context, request *pb.Port) (*pb.Response, error) {
+	log.Printf("Received AddOrUpdate request: %v", request.ProtoReflect().Descriptor().FullName())
+
 	s.db[request.Id] = client.PortData{
 		Name:        request.Name,
 		City:        request.City,
@@ -43,11 +45,14 @@ func (s *Server) AddOrUpdate(ctx context.Context, request *pb.Port) (*pb.Respons
 }
 
 // Get retrieves a port from the database by its ID
-func (s *Server) Get(ctx context.Context, id *pb.ID) (*pb.Port, error) {
+func (s *Server) GetPort(ctx context.Context, id *pb.ID) (*pb.Port, error) {
+	log.Printf("Received GetPort request with id: %v", id)
+
 	p, ok := s.db[id.Id]
 	if !ok {
 		return nil, fmt.Errorf("port not found")
 	}
+
 	return &pb.Port{
 		Name:        p.Name,
 		City:        p.City,
@@ -63,8 +68,8 @@ func (s *Server) Get(ctx context.Context, id *pb.ID) (*pb.Port, error) {
 }
 
 // GetPortList retrieves all Ports from the DB
-func (s *Server) GetPortList(ctx context.Context, in *pb.GetPortListRequest) (*pb.GetPortListResponse, error) {
-	log.Printf("Received request: %v", in.ProtoReflect().Descriptor().FullName())
+func (s *Server) GetPortsList(ctx context.Context, in *pb.GetPortListRequest) (*pb.GetPortListResponse, error) {
+	log.Printf("Received GetPortsList request: %v", in.ProtoReflect().Descriptor().FullName())
 
 	return &pb.GetPortListResponse{
 		Ports: getSamplePorts(), // TODO: return from DB

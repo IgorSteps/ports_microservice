@@ -7,8 +7,7 @@ import (
 )
 
 type PortStore interface {
-	Insert(port *entities.Port) (*entities.Port, error)
+	Insert(port *entities.Port) error
 	GetSingle(portID uuid.UUID) error
-	//GetMultiple(filter someFilter) error
 	Update(portID uuid.UUID) error
 }

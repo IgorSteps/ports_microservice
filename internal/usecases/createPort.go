@@ -18,9 +18,7 @@ func NewCreatePort(ps repositories.PortStore) *CreatePort {
 }
 
 func (s *CreatePort) Execute(ctx context.Context, port *entities.Port) (*entities.Port, error) {
-	port, err := s.portStore.Insert(port)
-	// convertDbToEntity() // Do I need it ?
-	if err != nil {
+	if err := s.portStore.Insert(port); err != nil {
 		log.Printf("inserting port failed: %s", err.Error())
 		return nil, err
 	}

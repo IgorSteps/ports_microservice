@@ -11,7 +11,6 @@ type PortCreator interface {
 
 type PortFacade struct {
 	portCreator PortCreator
-	//portStore repositories.PortStore // might need for transactions?
 }
 
 func NewPortFacade(pc PortCreator) *PortFacade {

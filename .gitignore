@@ -12,5 +12,5 @@
 *.out
 
 # No binaries for you
-./dist
+dist/
 

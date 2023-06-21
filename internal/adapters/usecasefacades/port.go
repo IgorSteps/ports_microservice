@@ -6,7 +6,7 @@ import (
 )
 
 type PortCreator interface {
-	Execute(ctx context.Context, port *entities.Port) error
+	Execute(ctx context.Context, port *entities.Port) (*entities.Port, error)
 }
 
 type PortFacade struct {
@@ -19,6 +19,6 @@ func NewPortFacade(pc PortCreator) *PortFacade {
 	}
 }
 
-func (s *PortFacade) CreatePort(ctx context.Context, port *entities.Port) error {
+func (s *PortFacade) CreatePort(ctx context.Context, port *entities.Port) (*entities.Port, error) {
 	return s.portCreator.Execute(ctx, port)
 }

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package ports.v1;
+
+import "external/proto/ports/create.proto";
+
+option go_package = "ports/v1;ports_v1";
+
+service PortsService {
+   rpc CreatePort(CreatePortRequest) returns (CreatePortResponse) {}
+}

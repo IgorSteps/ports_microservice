@@ -4,7 +4,7 @@
 //go:build !wireinject
 // +build !wireinject
 
-package portgrpc
+package main
 
 import (
 	"ports_microservice/internal/adapters/grpc"

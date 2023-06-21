@@ -3,13 +3,13 @@ package grpc
 import (
 	"context"
 	"log"
-	port_pb "ports_microservice/external/proto"
+	port_pb "ports_microservice/external/proto/ports"
 
 	"google.golang.org/grpc"
 )
 
 type PortGrpcApi struct {
-	port_pb.UnimplementedPortServiceServer
+	port_pb.UnimplementedPortsServiceServer
 
 	facade PortFacade
 }
@@ -38,5 +38,5 @@ func (s *PortGrpcApi) CreatePort(ctx context.Context, req *port_pb.CreatePortReq
 // Registers a gRPC server to Ports service server.
 // Needs to implement gprcdriver.Service
 func (api *PortGrpcApi) Register(server *grpc.Server) {
-	port_pb.RegisterPortServiceServer(server, api)
+	port_pb.RegisterPortsServiceServer(server, api)
 }

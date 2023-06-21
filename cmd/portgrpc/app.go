@@ -1,4 +1,4 @@
-package portgrpc
+package main
 
 import (
 	"ports_microservice/internal/drivers/grpcdriver"

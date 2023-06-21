@@ -2,9 +2,12 @@ package grpcdriver
 
 import (
 	"fmt"
+	"log"
 	"net"
+	"ports_microservice/internal/drivers"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type Service interface {
@@ -18,19 +21,22 @@ type Server struct {
 
 func NewServer(service Service) *Server {
 	s := grpc.NewServer()
+	reflection.Register(s)
 	service.Register(s)
 
 	return &Server{
 		server: s,
-		port:   5001,
+		port:   drivers.GRPCServerPort,
 	}
 }
 
 func (s *Server) Run() error {
-	lis, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%d", s.port))
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", s.port))
 	if err != nil {
 		return err
 	}
+
+	log.Printf("GRPC server listening at %v", lis.Addr())
 
 	return s.server.Serve(lis)
 }

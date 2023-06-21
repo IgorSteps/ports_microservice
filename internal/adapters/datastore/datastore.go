@@ -2,18 +2,15 @@ package datastore
 
 import (
 	"ports_microservice/internal/domain/entities"
-	"ports_microservice/internal/domain/repositories"
 )
 
 type PortDatastore struct {
 	dbWrapper DBWrapper
-	store     repositories.PortStore
 }
 
-func NewPortDataStore(dbW DBWrapper, s repositories.PortStore) *PortDatastore {
+func NewPortDataStore(dbW DBWrapper) *PortDatastore {
 	return &PortDatastore{
 		dbWrapper: dbW,
-		store:     s,
 	}
 }
 

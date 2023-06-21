@@ -4,9 +4,12 @@
 package main
 
 import (
+	"ports_microservice/internal/adapters/datastore"
 	"ports_microservice/internal/adapters/grpc"
 	portGrpc "ports_microservice/internal/adapters/grpc"
 	"ports_microservice/internal/adapters/usecasefacades"
+	"ports_microservice/internal/domain/repositories"
+	"ports_microservice/internal/drivers/db"
 	"ports_microservice/internal/drivers/grpcdriver"
 	"ports_microservice/internal/drivers/wiredriver"
 	"ports_microservice/internal/usecases"
@@ -16,6 +19,13 @@ import (
 
 func BuildDIForApp() (*App, error) {
 	wire.Build(
+		// datastore:
+		datastore.NewPortDataStore,
+		wire.Bind(new(repositories.PortStore), new(*datastore.PortDatastore)),
+		// gorm db wrapper:
+		db.Init,
+		db.NewGormDBWrapper,
+		wire.Bind(new(datastore.DBWrapper), new(*db.GormDBWrapper)),
 		// usecase:
 		usecases.NewCreatePort,
 		wire.Bind(new(usecasefacades.PortCreator), new(*usecases.CreatePort)),

@@ -1,8 +1,11 @@
 # Ports Microservice
 
+A micrservice written in GoLang that tries to follow clean architecture. Uses google/wire for DI, gRPC and GORM.
+
 ## API Spec
- ### Port Creator gRPC service
- A gRPC service which exposes `ports.v1.PortsService` to create a port. It follows protobuf definitions in `external/proto/ports`
+
+### Port Creator gRPC service
+A gRPC service which exposes `ports.v1.PortsService` to create a port. It follows protobuf definitions in `external/proto/ports`
 
 Example, run the following from project root:
 ```

@@ -16,13 +16,13 @@ type Server struct {
 	port   int
 }
 
-func NewServer(port int, service Service) *Server {
+func NewServer(service Service) *Server {
 	s := grpc.NewServer()
 	service.Register(s)
 
 	return &Server{
 		server: s,
-		port:   port,
+		port:   5001,
 	}
 }
 
@@ -34,5 +34,3 @@ func (s *Server) Run() error {
 
 	return s.server.Serve(lis)
 }
-
-// TODO: Is some sort of shutdown func needed?

@@ -33,6 +33,10 @@ func (s *PortGrpcApi) CreatePort(ctx context.Context, req *port_pb.CreatePortReq
 	return resp, nil
 }
 
+// Register(server)
+//
+// Registers a gRPC server to Ports service server.
+// Needs to implement gprcdriver.Service
 func (api *PortGrpcApi) Register(server *grpc.Server) {
 	port_pb.RegisterPortServiceServer(server, api)
 }

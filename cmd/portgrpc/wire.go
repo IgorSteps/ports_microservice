@@ -1,6 +1,7 @@
 package portgrpc
 
 import (
+	"ports_microservice/internal/adapters/grpc"
 	portGrpc "ports_microservice/internal/adapters/grpc"
 	"ports_microservice/internal/adapters/usecasefacades"
 	"ports_microservice/internal/drivers/grpcdriver"
@@ -17,7 +18,8 @@ func BuildDIForApp() (*App, error) {
 		wire.Bind(new(usecasefacades.PortCreator), new(*usecases.CreatePort)),
 		// facade for usecases:
 		usecasefacades.NewPortFacade,
-		wire.Bind(new(portGrpc.PortFacade), new(*portGrpc.PortGrpcApi)),
+		grpc.NewPortGrpc,
+		wire.Bind(new(portGrpc.PortFacade), new(*usecasefacades.PortFacade)),
 		// grpc service:
 		wiredriver.NewGRPCService,
 		// grpc driver:

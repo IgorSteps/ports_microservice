@@ -2,16 +2,22 @@ package db
 
 import (
 	"log"
+	models "ports_microservice/internal/adapters/datastore/model"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
+
 	"gorm.io/gorm"
 )
 
 func Init() *gorm.DB {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	dbURL := "postgres://pg:pass@localhost:5432/crud"
+	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+
 	if err != nil {
-		log.Fatalf("failed to connect database: %v", err)
+		log.Fatalln(err)
 	}
+
+	db.AutoMigrate(&models.PortSchema{})
 
 	return db
 }

@@ -6,11 +6,11 @@ import (
 )
 
 type PortDatastore struct {
-	dbWrapper GormDBWrapper
+	dbWrapper DBWrapper
 	store     repositories.PortStore
 }
 
-func NewPortDataStore(dbW GormDBWrapper, s repositories.PortStore) *PortDatastore {
+func NewPortDataStore(dbW DBWrapper, s repositories.PortStore) *PortDatastore {
 	return &PortDatastore{
 		dbWrapper: dbW,
 		store:     s,
@@ -18,7 +18,7 @@ func NewPortDataStore(dbW GormDBWrapper, s repositories.PortStore) *PortDatastor
 }
 
 func (s *PortDatastore) Insert(port *entities.Port) error {
-	if err := s.dbWrapper.Create(port); err != nil {
+	if err := s.dbWrapper.Create(port).Error(); err != nil {
 		return err
 	}
 

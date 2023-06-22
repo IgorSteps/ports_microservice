@@ -19,7 +19,7 @@ import (
 // Injectors from wire.go:
 
 func BuildDIForApp() (*App, error) {
-	gormDB := db.Init()
+	gormDB := db.NewDB()
 	gormDBWrapper := db.NewGormDBWrapper(gormDB)
 	portDatastore := datastore.NewPortDataStore(gormDBWrapper)
 	createPort := usecases.NewCreatePort(portDatastore)

@@ -23,7 +23,7 @@ func BuildDIForApp() (*App, error) {
 		datastore.NewPortDataStore,
 		wire.Bind(new(repositories.PortStore), new(*datastore.PortDatastore)),
 		// gorm db wrapper:
-		db.Init,
+		db.NewDB,
 		db.NewGormDBWrapper,
 		wire.Bind(new(datastore.DBWrapper), new(*db.GormDBWrapper)),
 		// usecase:

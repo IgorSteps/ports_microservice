@@ -29,6 +29,8 @@ func BuildDIForApp() (*App, error) {
 		// usecase:
 		usecases.NewCreatePort,
 		wire.Bind(new(usecasefacades.PortCreator), new(*usecases.CreatePort)),
+		usecases.NewGetPorts,
+		wire.Bind(new(usecasefacades.PortGetter), new(*usecases.GetPorts)),
 		// facade for usecases:
 		usecasefacades.NewPortFacade,
 		grpc.NewPortGrpc,

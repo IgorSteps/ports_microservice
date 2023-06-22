@@ -14,12 +14,12 @@ func main() {
 	}
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	log.Print("Starting app")
+	log.Print("Starting ports grpc app")
 
 	go app.server.Run()
 
 	<-ctx.Done()
 	stop()
 
-	log.Print("Shutting down the app")
+	log.Print("Shutting down ports grpc app")
 }

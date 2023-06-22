@@ -41,6 +41,10 @@ func (s *GormDBWrapper) Create(value interface{}) datastore.DBWrapper {
 	return &GormDBWrapper{db: s.db.Create(value)}
 }
 
+func (s *GormDBWrapper) Find(value interface{}) datastore.DBWrapper {
+	return &GormDBWrapper{db: s.db.Find(value)}
+}
+
 func (s *GormDBWrapper) Error() error {
 	return s.db.Error
 }

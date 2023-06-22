@@ -6,4 +6,5 @@ import (
 
 type PortStore interface {
 	Insert(port *entities.Port) error
+	GetSingle(id string) error
 }

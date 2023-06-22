@@ -7,8 +7,10 @@
 package main
 
 import (
+	"ports_microservice/internal/adapters/datastore"
 	"ports_microservice/internal/adapters/grpc"
 	"ports_microservice/internal/adapters/usecasefacades"
+	"ports_microservice/internal/drivers/db"
 	"ports_microservice/internal/drivers/grpcdriver"
 	"ports_microservice/internal/drivers/wiredriver"
 	"ports_microservice/internal/usecases"
@@ -17,7 +19,10 @@ import (
 // Injectors from wire.go:
 
 func BuildDIForApp() (*App, error) {
-	createPort := usecases.NewCreatePort()
+	gormDB := db.NewDB()
+	gormDBWrapper := db.NewGormDBWrapper(gormDB)
+	portDatastore := datastore.NewPortDataStore(gormDBWrapper)
+	createPort := usecases.NewCreatePort(portDatastore)
 	portFacade := usecasefacades.NewPortFacade(createPort)
 	portGrpcApi := grpc.NewPortGrpc(portFacade)
 	service := wiredriver.NewGRPCService(portGrpcApi)

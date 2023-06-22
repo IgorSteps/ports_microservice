@@ -1,24 +1,23 @@
 package datastore
 
 import (
+	models "ports_microservice/internal/adapters/datastore/model"
 	"ports_microservice/internal/domain/entities"
-	"ports_microservice/internal/domain/repositories"
 )
 
 type PortDatastore struct {
-	dbWrapper GormDBWrapper
-	store     repositories.PortStore
+	dbWrapper DBWrapper
 }
 
-func NewPortDataStore(dbW GormDBWrapper, s repositories.PortStore) *PortDatastore {
+func NewPortDataStore(dbW DBWrapper) *PortDatastore {
 	return &PortDatastore{
 		dbWrapper: dbW,
-		store:     s,
 	}
 }
 
 func (s *PortDatastore) Insert(port *entities.Port) error {
-	if err := s.dbWrapper.Create(port); err != nil {
+	portShema := models.ConvertEntityToDB(port)
+	if err := s.dbWrapper.Create(portShema).Error(); err != nil {
 		return err
 	}
 

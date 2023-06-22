@@ -1,12 +1,12 @@
 # Ports Microservice Exercise
 
-A micrservice written in GoLang that tries to follow clean architecture. Uses google/wire for DI, gRPC and GORM.
+A micrservice written in GoLang that follows clean architecture. Uses wire for DI, gRPC, REST and GORM with PostgreSQL.
 
 ## API Spec
 
 ### Port Creator gRPC service
 
-A gRPC service which exposes `ports.v1.PortsService` to create a port. It follows protobuf definitions in `external/proto/ports`
+A gRPC service which exposes `ports.v1.PortsService` to create a port. It follows protobuf definitions in `external/proto/ports`.
 
 Example, run the following from project root:
 
@@ -26,12 +26,17 @@ which should output:
 
 ## Running locally
 
+### Prerequisites
+
+- Docker
+- Go version > 1.20.5
+
 ### Setting up environment
 
-1. Run `docker-compose up -d` to create required images likes Postgresql
+1. Run `docker-compose up -d` to create required PostgreSQL image.
 
 ### Starting the service
 
 1. Run `make build`.
 2. Run `make run`.
-3. If changes were made to wire.go files, run `make wire` to regen wire_gen.go file.
+3. If changes were made to wire.go files, run `make wire` to regen `wire_gen.go` file.

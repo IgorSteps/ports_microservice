@@ -6,4 +6,5 @@ import (
 
 type PortStore interface {
 	Insert(port *entities.Port) error
+	GetMultiple() ([]*entities.Port, error)
 }

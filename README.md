@@ -24,6 +24,50 @@ which should output:
 }
 ```
 
+### Port getter REST service
+
+A REST service which exposes `/ports` endpoint to get ports.
+
+Example, run the following from project root:
+
+```zsh
+curl localhost:3000/ports
+```
+
+which should output:
+
+```json
+{
+  [
+    {
+        "Name": "Great Port",
+        "City": "St. Petersburg",
+        "Country": "Russia",
+        "Alias": null,
+        "Regions": null,
+        "Coordinates": null,
+        "Province": "",
+        "Timezone": "",
+        "Unlocs": null,
+        "Code": ""
+    },
+    {
+        "Name": "Great Port",
+        "City": "St. Petersburg",
+        "Country": "Russia",
+        "Alias": null,
+        "Regions": null,
+        "Coordinates": null,
+        "Province": "",
+        "Timezone": "",
+        "Unlocs": null,
+        "Code": ""
+    },
+  // More ports if you have them.
+  ] 
+}
+```
+
 ## Running locally
 
 ### Prerequisites
@@ -38,5 +82,6 @@ which should output:
 ### Starting the service
 
 1. Run `make build`.
-2. Run `make run`.
-3. If changes were made to wire.go files, run `make wire` to regen `wire_gen.go` file.
+2. Run `make run-grpc` to run ports grpc.
+3. Run `make run-rest` to run ports rest.
+4. If changes were made to wire.go files, run `make wire` to regen `wire_gen.go` file.

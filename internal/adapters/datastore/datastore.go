@@ -23,3 +23,19 @@ func (s *PortDatastore) Insert(port *entities.Port) error {
 
 	return nil
 }
+
+func (s *PortDatastore) GetMultiple() ([]*entities.Port, error) {
+	// Get all ports.
+	var ports []*models.PortSchema
+	if err := s.dbWrapper.Find(&ports).Error(); err != nil {
+		return nil, err
+	}
+
+	// Convert db to entity ports.
+	var domainPorts []*entities.Port
+	for _, port := range ports {
+		domainPorts = append(domainPorts, models.ConvertDBToEntity(port))
+	}
+
+	return domainPorts, nil
+}

@@ -16,15 +16,22 @@ gen:
 .PHONY: build
 build:
 	$(GO) build -o $(DIST_DIR)/ports-grpc $(CMD_DIR)/portgrpc
+	$(GO) build -o $(DIST_DIR)/ports-rest $(CMD_DIR)/portrest
 
-## run: run the project
-.PHONY: run
-run:
+## run-grpc: run ports grpc 
+.PHONY: run-grpc
+run-grpc:
 	./dist/ports-grpc
+
+## run-rest: run ports rest 
+.PHONY: run-rest
+run-rest:
+	./dist/ports-rest
 
 ## wire: generate DI files
 .PHONY: wire
 wire:
 	$(WIRE) $(CMD_DIR)/portgrpc
+	$(WIRE) $(CMD_DIR)/portrest
 
 

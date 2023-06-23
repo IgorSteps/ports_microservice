@@ -4,9 +4,9 @@
 package main
 
 import (
+	"ports_microservice/internal/adapters"
 	"ports_microservice/internal/adapters/datastore"
-	"ports_microservice/internal/adapters/grpc"
-	portGrpc "ports_microservice/internal/adapters/grpc"
+	"ports_microservice/internal/adapters/portsgrpc"
 	"ports_microservice/internal/adapters/usecasefacades"
 	"ports_microservice/internal/domain/repositories"
 	"ports_microservice/internal/drivers/db"
@@ -29,10 +29,12 @@ func BuildDIForApp() (*App, error) {
 		// usecase:
 		usecases.NewCreatePort,
 		wire.Bind(new(usecasefacades.PortCreator), new(*usecases.CreatePort)),
+		usecases.NewGetPorts,
+		wire.Bind(new(usecasefacades.PortGetter), new(*usecases.GetPorts)),
 		// facade for usecases:
 		usecasefacades.NewPortFacade,
-		grpc.NewPortGrpc,
-		wire.Bind(new(portGrpc.PortFacade), new(*usecasefacades.PortFacade)),
+		portsgrpc.NewPortGrpc,
+		wire.Bind(new(adapters.PortFacade), new(*usecasefacades.PortFacade)),
 		// grpc service:
 		wiredriver.NewGRPCService,
 		// grpc driver:

@@ -16,7 +16,7 @@ func NewGetPorts(ps repositories.PortStore) *GetPorts {
 	}
 }
 
-func (s *GetPorts) GetPorts() ([]*entities.Port, error) {
+func (s *GetPorts) Execute() ([]*entities.Port, error) {
 	ports, err := s.portStore.GetMultiple()
 	if err != nil {
 		log.Printf("Failed to get ports: %v", err)

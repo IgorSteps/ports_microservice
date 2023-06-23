@@ -1,4 +1,4 @@
-package grpc
+package portsgrpc
 
 import (
 	port_pb "ports_microservice/external/proto/ports"

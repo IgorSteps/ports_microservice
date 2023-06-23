@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"ports_microservice/internal/adapters"
-	"ports_microservice/internal/adapters/rest"
+	"ports_microservice/internal/adapters/portsrest"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,12 +12,12 @@ import (
 type Router struct {
 	router *gin.Engine
 	port   int
-	api    *rest.PortsRestApi
+	api    *portsrest.PortsRestApi
 }
 
 func NewRouter(facade adapters.PortFacade) *Router {
 	r := gin.Default()
-	api := rest.NewPortRestApi(facade)
+	api := portsrest.NewPortRestApi(facade)
 
 	r.GET("/ports", api.GetPorts)
 

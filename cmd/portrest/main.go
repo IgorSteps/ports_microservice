@@ -10,7 +10,7 @@ import (
 func main() {
 	app, err := BuildDIForApp()
 	if err != nil {
-		log.Fatalf("Failed to build DI for app: %v", err)
+		log.Fatalf("Failed to build DI for ports rest app: %v", err)
 	}
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)

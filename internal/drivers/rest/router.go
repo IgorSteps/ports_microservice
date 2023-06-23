@@ -3,7 +3,7 @@ package rest
 import (
 	"fmt"
 	"log"
-	"ports_microservice/internal/adapters/grpc"
+	"ports_microservice/internal/adapters"
 	"ports_microservice/internal/adapters/rest"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ type Router struct {
 	api    *rest.PortsRestApi
 }
 
-func NewRouter(facade grpc.PortFacade) *Router {
+func NewRouter(facade adapters.PortFacade) *Router {
 	r := gin.Default()
 	api := rest.NewPortRestApi(facade)
 

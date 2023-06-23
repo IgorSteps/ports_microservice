@@ -3,16 +3,16 @@ package rest
 import (
 	"log"
 	"net/http"
-	"ports_microservice/internal/adapters/grpc"
+	"ports_microservice/internal/adapters"
 
 	"github.com/gin-gonic/gin"
 )
 
 type PortsRestApi struct {
-	facade grpc.PortFacade
+	facade adapters.PortFacade
 }
 
-func NewPortRestApi(f grpc.PortFacade) *PortsRestApi {
+func NewPortRestApi(f adapters.PortFacade) *PortsRestApi {
 	return &PortsRestApi{
 		facade: f,
 	}

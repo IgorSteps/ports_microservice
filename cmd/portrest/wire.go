@@ -4,8 +4,8 @@
 package main
 
 import (
+	"ports_microservice/internal/adapters"
 	"ports_microservice/internal/adapters/datastore"
-	portGrpc "ports_microservice/internal/adapters/grpc"
 	"ports_microservice/internal/adapters/usecasefacades"
 	"ports_microservice/internal/domain/repositories"
 	"ports_microservice/internal/drivers/db"
@@ -32,7 +32,7 @@ func BuildDIForApp() (*App, error) {
 		wire.Bind(new(usecasefacades.PortGetter), new(*usecases.GetPorts)),
 		// facade for usecases:
 		usecasefacades.NewPortFacade,
-		wire.Bind(new(portGrpc.PortFacade), new(*usecasefacades.PortFacade)),
+		wire.Bind(new(adapters.PortFacade), new(*usecasefacades.PortFacade)),
 		// rest driver
 		rest.NewRouter,
 		// service:

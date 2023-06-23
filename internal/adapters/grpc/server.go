@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	port_pb "ports_microservice/external/proto/ports"
+	"ports_microservice/internal/adapters"
 
 	"google.golang.org/grpc"
 )
@@ -11,10 +12,10 @@ import (
 type PortGrpcApi struct {
 	port_pb.UnimplementedPortsServiceServer
 
-	facade PortFacade
+	facade adapters.PortFacade
 }
 
-func NewPortGrpc(f PortFacade) *PortGrpcApi {
+func NewPortGrpc(f adapters.PortFacade) *PortGrpcApi {
 	return &PortGrpcApi{
 		facade: f,
 	}

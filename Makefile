@@ -35,3 +35,8 @@ wire:
 	$(WIRE) $(CMD_DIR)/portrest
 
 
+
+## mocks: generate mocks
+.PHONY: mocks
+mocks:
+	mockery --dir=./internal --output=./mocks

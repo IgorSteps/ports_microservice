@@ -85,3 +85,9 @@ which should output:
 3. Run `make run-rest` to run ports rest.
 4. If changes were made to wire.go files, run `make wire` to regen `wire_gen.go` file.
 5. If changes were made to proto definition files, run `make proto` to regen protobuf files.
+
+## Testing
+
+### Unit
+
+Run `make unit` to run unit tests for the whole project.

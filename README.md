@@ -90,4 +90,9 @@ which should output:
 
 ### Unit
 
-Run `make unit` to run unit tests for the whole project.
+1. Run `make mocks` to regen mocks.
+2. Run `make unit` to run unit tests for the whole project.
+
+### Functional
+
+TODO

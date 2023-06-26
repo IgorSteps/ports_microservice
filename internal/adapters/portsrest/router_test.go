@@ -45,7 +45,6 @@ func (s *GetPortsTestSuite) TestGetPorts(t *testing.T) {
 	adapter := portsrest.NewPortRestApi(s.facade)
 
 	for _, tc := range testCases {
-
 		w := httptest.NewRecorder()
 		r := gin.Default()
 		ctx := gin.CreateTestContextOnly(w, r)
@@ -60,7 +59,6 @@ func (s *GetPortsTestSuite) TestGetPorts(t *testing.T) {
 		// -------
 		// ASSERT
 		// -------
-
 		// Need to unmarshal returned JSON into Go slice.
 		var returnedPorts []*entities.Port
 		json.Unmarshal(w.Body.Bytes(), &returnedPorts)

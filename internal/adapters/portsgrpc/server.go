@@ -26,7 +26,8 @@ func (s *PortGrpcApi) CreatePort(ctx context.Context, req *port_pb.CreatePortReq
 
 	createdPort, err := s.facade.CreatePort(ctx, port)
 	if err != nil {
-		log.Fatalf("Error occurred creating port: %v", err)
+		log.Printf("Error occurred creating port: %v", err)
+		return nil, err
 	}
 
 	resp := ConvertEntityToProto(createdPort)

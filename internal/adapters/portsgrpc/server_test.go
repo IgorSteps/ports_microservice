@@ -38,10 +38,10 @@ func (s *CreatePortTestSuite) TestCreatePorts(t *testing.T) {
 	ctx := context.Background()
 
 	testCases := []*CreatePortTestCase{
-		NewCreatePortTestCase("Successful ports get", nil, testProtoPortResp, func() {
+		NewCreatePortTestCase("Successful ports create", nil, testProtoPortResp, func() {
 			s.facade.EXPECT().CreatePort(ctx, testEntityPort).Return(testEntityPort, nil).Once()
 		}),
-		NewCreatePortTestCase("Failed ports get", testError, nil, func() {
+		NewCreatePortTestCase("Failed ports create", testError, nil, func() {
 			s.facade.EXPECT().CreatePort(ctx, testEntityPort).Return(nil, testError).Once()
 		}),
 	}

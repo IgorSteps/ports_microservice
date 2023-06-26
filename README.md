@@ -24,16 +24,15 @@ which should output:
 }
 ```
 
-### Port getter REST service
+### Port Getter REST service
 
-A REST service which exposes `/ports` endpoint to get ports.
+A REST service which exposes `/ports` and `/ports/{id}` endpoints to get ports and a single port by ID.
 
-Example, run the following from project root:
+Example, run the following from terminal:
 
 ```zsh
 curl localhost:3000/ports
 ```
-
 which should output:
 
 ```json
@@ -63,10 +62,19 @@ which should output:
         "Unlocs": null,
         "Code": ""
     },
-  // More ports if you have them.
   ] 
 }
 ```
+
+or
+
+ ```zsh
+curl localhost:3000/ports/{id}
+ ```
+
+which will output
+
+TODO
 
 ## Running locally
 
@@ -85,3 +93,15 @@ which should output:
 2. Run `make run-grpc` to run ports grpc.
 3. Run `make run-rest` to run ports rest.
 4. If changes were made to wire.go files, run `make wire` to regen `wire_gen.go` file.
+5. If changes were made to proto definition files, run `make proto` to regen protobuf files.
+
+## Testing
+
+### Unit
+
+1. Run `make mocks` to regen mocks.
+2. Run `make unit` to run unit tests for the whole project.
+
+### Functional
+
+TODO

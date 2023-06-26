@@ -4,13 +4,19 @@ GO := go
 CMD_DIR := ./cmd
 DIST_DIR := ./dist
 
-## gen: generate Go files from proto
-.PHONY: gen
-gen:
+## proto: generate Go files from proto
+.PHONY: proto
+proto:
 	protoc --go_out=. --go_opt=paths=source_relative \
 	--go-grpc_out=. --go-grpc_opt=paths=source_relative \
 	external/proto/ports/service.proto \
 	external/proto/ports/create.proto
+
+## wire: generate DI files
+.PHONY: wire
+wire:
+	$(WIRE) $(CMD_DIR)/portgrpc
+	$(WIRE) $(CMD_DIR)/portrest
 
 ## build: build the project
 .PHONY: build
@@ -28,10 +34,12 @@ run-grpc:
 run-rest:
 	./dist/ports-rest
 
-## wire: generate DI files
-.PHONY: wire
-wire:
-	$(WIRE) $(CMD_DIR)/portgrpc
-	$(WIRE) $(CMD_DIR)/portrest
+## mocks: generate mocks
+.PHONY: mocks
+mocks:
+	mockery --dir=./internal --output=./mocks
 
-
+## unit: runs unit tests
+.PHONY: unit
+unit:
+	$(GO) test ./...

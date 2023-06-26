@@ -21,7 +21,8 @@ func NewPortRestApi(f adapters.PortFacade) *PortsRestApi {
 func (s *PortsRestApi) GetPorts(c *gin.Context) {
 	ports, err := s.facade.GetPorts()
 	if err != nil {
-		log.Fatalf("Error occured getting ports %v", err)
+		log.Printf("Error occured getting ports %v", err)
+		c.IndentedJSON(http.StatusInternalServerError, nil)
 	}
 
 	c.IndentedJSON(http.StatusOK, ports)

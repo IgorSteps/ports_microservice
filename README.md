@@ -26,14 +26,13 @@ which should output:
 
 ### Port Getter REST service
 
-A REST service which exposes `/ports` endpoint to get ports.
+A REST service which exposes `/ports` and `/ports/{id}` endpoints to get ports and a single port by ID.
 
-Example, run the following from project root:
+Example, run the following from terminal:
 
 ```zsh
 curl localhost:3000/ports
 ```
-
 which should output:
 
 ```json
@@ -66,6 +65,16 @@ which should output:
   ] 
 }
 ```
+
+or
+
+ ```zsh
+curl localhost:3000/ports/{id}
+ ```
+
+which will output
+
+TODO
 
 ## Running locally
 

@@ -33,7 +33,7 @@ func BuildDIForApp() (*App, error) {
 		wire.Bind(new(usecasefacades.PortGetter), new(*usecases.GetPorts)),
 		// facade for usecases:
 		usecasefacades.NewPortFacade,
-		portsgrpc.NewPortGrpc,
+		portsgrpc.NewPortGrpcApi,
 		wire.Bind(new(adapters.PortFacade), new(*usecasefacades.PortFacade)),
 		// grpc service:
 		wiredriver.NewGRPCService,

@@ -15,7 +15,7 @@ type PortGrpcApi struct {
 	facade adapters.PortFacade
 }
 
-func NewPortGrpc(f adapters.PortFacade) *PortGrpcApi {
+func NewPortGrpcApi(f adapters.PortFacade) *PortGrpcApi {
 	return &PortGrpcApi{
 		facade: f,
 	}

@@ -46,7 +46,7 @@ func (s *CreatePortTestSuite) TestCreatePorts(t *testing.T) {
 		}),
 	}
 
-	adapter := portsgrpc.NewPortGrpc(s.facade)
+	adapter := portsgrpc.NewPortGrpcApi(s.facade)
 
 	for _, tc := range testCases {
 		ctx := context.Background()

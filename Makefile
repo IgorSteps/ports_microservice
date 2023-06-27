@@ -3,6 +3,8 @@ GO := go
 
 CMD_DIR := ./cmd
 DIST_DIR := ./dist
+INTERNAL_DIR := ./internal
+FUNCTIONAL_DIR := ./functionaltests
 
 ## proto: generate Go files from proto
 .PHONY: proto
@@ -42,4 +44,9 @@ mocks:
 ## unit: runs unit tests
 .PHONY: unit
 unit:
-	$(GO) test ./...
+	$(GO) test $(INTERNAL_DIR)/...
+
+## functional: runs functional tests
+.PHONY: functional
+functional:
+	$(GO) test $(FUNCTIONAL_DIR)/...

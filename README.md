@@ -104,4 +104,5 @@ TODO
 
 ### Functional
 
-TODO
+1. You will need both portsgrpc and portsrest services running.
+2. Run `make functional`.

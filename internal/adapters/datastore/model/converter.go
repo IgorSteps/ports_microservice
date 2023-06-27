@@ -2,13 +2,10 @@ package models
 
 import (
 	"ports_microservice/internal/domain/entities"
-
-	"github.com/google/uuid"
 )
 
 func ConvertEntityToDB(port *entities.Port) *PortSchema {
 	return &PortSchema{
-		Id:          uuid.New(),
 		Name:        port.Name,
 		City:        port.City,
 		Country:     port.Country,

@@ -5,6 +5,7 @@ import (
 	"log"
 	"ports_microservice/internal/adapters"
 	"ports_microservice/internal/adapters/portsrest"
+	"ports_microservice/internal/drivers"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,7 +24,7 @@ func NewRouter(facade adapters.PortFacade) *Router {
 
 	return &Router{
 		router: r,
-		port:   3000,
+		port:   drivers.RESTRouterPort,
 		api:    api,
 	}
 }

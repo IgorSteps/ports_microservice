@@ -25,7 +25,7 @@ func BuildDIForApp() (*App, error) {
 	createPort := usecases.NewCreatePort(portDatastore)
 	getPorts := usecases.NewGetPorts(portDatastore)
 	portFacade := usecasefacades.NewPortFacade(createPort, getPorts)
-	portGrpcApi := portsgrpc.NewPortGrpc(portFacade)
+	portGrpcApi := portsgrpc.NewPortGrpcApi(portFacade)
 	service := wiredriver.NewGRPCService(portGrpcApi)
 	server := grpcdriver.NewServer(service)
 	app := NewApp(server)
